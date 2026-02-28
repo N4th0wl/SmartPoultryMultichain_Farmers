@@ -3,7 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+-- Generation Time: Feb 17, 2026 at 12:24 AM
 -- Server version: 10.4.25-MariaDB
+-- PHP Version: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -38,6 +40,13 @@ CREATE TABLE `blockchainidentity` (
   `CompletedAt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `blockchainidentity`
+--
+
+INSERT INTO `blockchainidentity` (`IdIdentity`, `KodeIdentity`, `KodePeternakan`, `KodeCycle`, `GenesisHash`, `LatestBlockHash`, `TotalBlocks`, `StatusChain`, `CreatedAt`, `CompletedAt`) VALUES
+(1, 'CHAIN-000001', 2, 1, '146853c90b869dd0028cae86c664695fb515f0fce3ee0d96a8f6a02944762375', 'bf2d33dcd0f69043abb638159f38445305b4916456a624f02bb02faa11fc8c4b', 9, 'COMPLETED', '2026-02-16 09:44:41', '2026-02-16 10:34:25');
+
 -- --------------------------------------------------------
 
 --
@@ -48,6 +57,33 @@ CREATE TABLE `codecounter` (
   `EntityName` varchar(50) NOT NULL,
   `LastCounter` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `codecounter`
+--
+
+INSERT INTO `codecounter` (`EntityName`, `LastCounter`) VALUES
+('DetailNotaPenerimaan', 3),
+('DetailOrder', 3),
+('DOC', 1),
+('Kandang', 1),
+('NotaPenerimaan', 1),
+('NotaPengiriman', 0),
+('Orders', 1),
+('Panen', 2),
+('PemakaianFeed', 1),
+('PemakaianObat', 3),
+('PemakaianPerlengkapan', 0),
+('Pengiriman', 2),
+('PengukuranAyam', 0),
+('Performance', 0),
+('Perlengkapan', 2),
+('Staf', 1),
+('StatusKandang', 2),
+('StatusKematian', 1),
+('Supplier', 1),
+('TimKerja', 1),
+('Warehouse', 1);
 
 -- --------------------------------------------------------
 
@@ -62,6 +98,13 @@ CREATE TABLE `cycle` (
   `SisaHariPanen` int(11) NOT NULL CHECK (`SisaHariPanen` >= 0)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `cycle`
+--
+
+INSERT INTO `cycle` (`KodeCycle`, `TanggalMulai`, `DurasiCycle`, `SisaHariPanen`) VALUES
+(1, '2026-02-16', 1, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -74,6 +117,13 @@ CREATE TABLE `detailfeed` (
   `KodePerlengkapan` char(13) NOT NULL,
   `JumlahPakan` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detailfeed`
+--
+
+INSERT INTO `detailfeed` (`KodeDetailFeed`, `KodePemakaianFeed`, `KodePerlengkapan`, `JumlahPakan`) VALUES
+(1, 'PFD-000000001', 'PER-000000001', 10);
 
 -- --------------------------------------------------------
 
@@ -89,6 +139,15 @@ CREATE TABLE `detailnotapenerimaan` (
   `Jumlah` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `detailnotapenerimaan`
+--
+
+INSERT INTO `detailnotapenerimaan` (`KodeDetailNota`, `KodePenerimaan`, `JenisBarang`, `NamaBarang`, `Jumlah`) VALUES
+('DNP-000000001', 'NPR-000000001', 'DOC', 'Ayam Broiler', 100),
+('DNP-000000002', 'NPR-000000001', 'PERLENGKAPAN', 'Pakan Starter', 100),
+('DNP-000000003', 'NPR-000000001', 'PERLENGKAPAN', 'Obat', 10);
+
 -- --------------------------------------------------------
 
 --
@@ -103,6 +162,15 @@ CREATE TABLE `detailorder` (
   `JumlahBarang` int(11) NOT NULL,
   `HargaSatuan` decimal(12,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `detailorder`
+--
+
+INSERT INTO `detailorder` (`KodeDetailOrder`, `KodeOrder`, `JenisBarang`, `NamaBarang`, `JumlahBarang`, `HargaSatuan`) VALUES
+('DOR-000000001', 'ORD-000000001', 'DOC', 'Ayam Broiler', 100, '10000.00'),
+('DOR-000000002', 'ORD-000000001', 'PERLENGKAPAN', 'Pakan Starter', 100, '5000.00'),
+('DOR-000000003', 'ORD-000000001', 'PERLENGKAPAN', 'Obat', 10, '11998.00');
 
 -- --------------------------------------------------------
 
@@ -123,6 +191,13 @@ CREATE TABLE `doc` (
   `KondisiAwal` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `doc`
+--
+
+INSERT INTO `doc` (`KodeDOC`, `KodePenerimaan`, `KodeKandang`, `BrandDOC`, `TipeAyam`, `TanggalMasukKandang`, `JumlahDipesan`, `JumlahDiterima`, `JumlahMatiPraKandang`, `KondisiAwal`) VALUES
+('DOC-000000001', 'NPR-000000001', 'KDG-000000001', 'Ayam Broiler', 'Broiler', '2026-02-16', 100, 90, 10, 'BAIK');
+
 -- --------------------------------------------------------
 
 --
@@ -140,6 +215,13 @@ CREATE TABLE `kandang` (
   `Kepadatan` float DEFAULT NULL,
   `SuhuKandang` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kandang`
+--
+
+INSERT INTO `kandang` (`KodeKandang`, `KodeCycle`, `KodePeternakan`, `KodeTim`, `PanjangKandang`, `LebarKandang`, `LantaiKandang`, `Kepadatan`, `SuhuKandang`) VALUES
+('KDG-000000001', 1, 2, 'TIM-000000001', 10, 10, 'Sekam', 0.9, 28);
 
 -- --------------------------------------------------------
 
@@ -164,6 +246,21 @@ CREATE TABLE `ledger_peternakan` (
   `ValidatedAt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `ledger_peternakan`
+--
+
+INSERT INTO `ledger_peternakan` (`IdBlock`, `KodeBlock`, `KodePeternakan`, `KodeCycle`, `KodeKandang`, `TipeBlock`, `BlockIndex`, `PreviousHash`, `CurrentHash`, `DataPayload`, `Nonce`, `StatusBlock`, `CreatedAt`, `ValidatedAt`) VALUES
+(1, 'BLK-1-0000', 2, 1, NULL, 'GENESIS', 0, '0000000000000000000000000000000000000000000000000000000000000000', '76d40faa5d9832d403bec3a9ac2bf1e4cd9b49c5fa9b34854cbb0c758bffd873', '{\"event\":\"GENESIS\",\"node\":\"NODE_PETERNAKAN\",\"cycle_id\":1,\"tanggal_mulai\":\"2026-02-16\",\"durasi_cycle\":1,\"sisa_hari_panen\":1}', 0, 'VALIDATED', '2026-02-16 09:44:41', '2026-02-16 09:44:41'),
+(2, 'BLK-1-0001', 2, 1, 'KDG-000000001', 'KANDANG_AKTIF', 1, '76d40faa5d9832d403bec3a9ac2bf1e4cd9b49c5fa9b34854cbb0c758bffd873', '2b44a1c467be2741cf5b7801ff1c903f1ef7d3471ae083587ce9cbcb537ec0dc', '{\"event\":\"KANDANG_AKTIF\",\"node\":\"NODE_PETERNAKAN\",\"kode_kandang\":\"KDG-000000001\",\"kode_tim\":\"TIM-000000001\",\"panjang\":10,\"lebar\":10,\"lantai\":\"Sekam\",\"kepadatan\":0.9,\"suhu\":28}', 0, 'VALIDATED', '2026-02-16 09:44:41', '2026-02-16 09:44:41'),
+(3, 'BLK-1-0002', 2, 1, 'KDG-000000001', 'DOC_MASUK', 2, '2b44a1c467be2741cf5b7801ff1c903f1ef7d3471ae083587ce9cbcb537ec0dc', '7118fb48c0fade9e01101f3ff108b92470ac15d635ae497c2a6c4ec91faf8abc', '{\"event\":\"DOC_MASUK\",\"node\":\"NODE_PETERNAKAN\",\"kode_doc\":\"DOC-000000001\",\"kode_kandang\":\"KDG-000000001\",\"brand_doc\":\"Ayam Broiler\",\"tipe_ayam\":\"Broiler\",\"tanggal_masuk\":\"2026-02-16\",\"jumlah_dipesan\":100,\"jumlah_diterima\":90,\"jumlah_mati_pra_kandang\":10,\"kondisi_awal\":\"BAIK\"}', 0, 'VALIDATED', '2026-02-16 09:44:41', '2026-02-16 09:44:41'),
+(4, 'BLK-1-0003', 2, 1, 'KDG-000000001', 'PEMAKAIAN_OBAT', 3, '7118fb48c0fade9e01101f3ff108b92470ac15d635ae497c2a6c4ec91faf8abc', '4d2306b1aa37b1f775978e29c55159150d837c16d4ca07205bfbf70a638e6100', '{\"event\":\"PEMAKAIAN_OBAT\",\"node\":\"NODE_PETERNAKAN\",\"kode_pemakaian_obat\":\"POB-000000001\",\"kode_kandang\":\"KDG-000000001\",\"kode_perlengkapan\":\"PER-000000002\",\"jenis_obat\":null,\"dosis\":null,\"jumlah_obat\":2,\"tanggal_penggunaan\":\"2026-02-16\",\"mortality_rate_at_usage\":0}', 0, 'VALIDATED', '2026-02-16 09:46:18', '2026-02-16 09:46:18'),
+(5, 'BLK-1-0004', 2, 1, 'KDG-000000001', 'LAPORAN_MORTALITY', 4, '4d2306b1aa37b1f775978e29c55159150d837c16d4ca07205bfbf70a638e6100', '06cba99e342c2adc5574b3bc151aa6bd83b2cc9c2319dfeda395672bf67e4a80', '{\"event\":\"LAPORAN_MORTALITY\",\"node\":\"NODE_PETERNAKAN\",\"kode_status_kematian\":\"SMT-000000001\",\"kode_kandang\":\"KDG-000000001\",\"tanggal_kejadian\":\"2026-02-16\",\"jumlah_mati\":\"5\",\"jumlah_reject\":\"5\",\"keterangan\":\"Suhu yang tidak sesuai\",\"mortality_rate_percent\":5.56,\"threshold_exceeded\":false}', 0, 'VALIDATED', '2026-02-16 09:46:45', '2026-02-16 09:46:45'),
+(6, 'BLK-1-0005', 2, 1, 'KDG-000000001', 'PEMAKAIAN_OBAT', 5, '06cba99e342c2adc5574b3bc151aa6bd83b2cc9c2319dfeda395672bf67e4a80', '3d5b066ec56e433f7d497072c9ffecf176cb9f461b2a2fd24494de4859a5b809', '{\"event\":\"PEMAKAIAN_OBAT\",\"node\":\"NODE_PETERNAKAN\",\"kode_pemakaian_obat\":\"POB-000000002\",\"kode_kandang\":\"KDG-000000001\",\"kode_perlengkapan\":\"PER-000000002\",\"jenis_obat\":null,\"dosis\":null,\"jumlah_obat\":\"2\",\"tanggal_penggunaan\":\"2026-02-16\",\"mortality_rate_at_usage\":5.56}', 0, 'VALIDATED', '2026-02-16 09:54:41', '2026-02-16 09:54:41'),
+(7, 'BLK-1-0006', 2, 1, 'KDG-000000001', 'PEMAKAIAN_OBAT', 6, '3d5b066ec56e433f7d497072c9ffecf176cb9f461b2a2fd24494de4859a5b809', 'b3151b3496416a639682e1aaa689638742eed4e8626fb546eb73f944372b7d19', '{\"event\":\"PEMAKAIAN_OBAT\",\"node\":\"NODE_PETERNAKAN\",\"kode_pemakaian_obat\":\"POB-000000003\",\"kode_kandang\":\"KDG-000000001\",\"kode_perlengkapan\":\"PER-000000002\",\"jenis_obat\":null,\"dosis\":null,\"jumlah_obat\":2,\"tanggal_penggunaan\":\"2026-02-16\",\"mortality_rate_at_usage\":5.56}', 0, 'VALIDATED', '2026-02-16 10:09:02', '2026-02-16 10:09:02'),
+(8, 'BLK-1-0007', 2, 1, 'KDG-000000001', 'PANEN_DINI', 7, 'b3151b3496416a639682e1aaa689638742eed4e8626fb546eb73f944372b7d19', 'cdbbce18731cf47bb2493fe2f92c141e7afd2c4a8ca1a42349a88a8b1184f9ae', '{\"event\":\"PANEN_DINI\",\"node\":\"NODE_PETERNAKAN\",\"kode_panen\":\"PAN-000000001\",\"kode_kandang\":\"KDG-000000001\",\"tanggal_panen\":\"2026-02-16\",\"total_berat_kg\":\"85\",\"total_harga\":\"25000000\",\"mortality_rate_final\":5.56,\"obat_digunakan\":true,\"durasi_aktual_hari\":0,\"durasi_target_hari\":1}', 0, 'VALIDATED', '2026-02-16 10:24:08', '2026-02-16 10:24:08'),
+(9, 'BLK-1-0008', 2, 1, 'KDG-000000001', 'PANEN_DINI', 8, 'cdbbce18731cf47bb2493fe2f92c141e7afd2c4a8ca1a42349a88a8b1184f9ae', 'bf2d33dcd0f69043abb638159f38445305b4916456a624f02bb02faa11fc8c4b', '{\"event\":\"PANEN_DINI\",\"node\":\"NODE_PETERNAKAN\",\"kode_panen\":\"PAN-000000002\",\"kode_kandang\":\"KDG-000000001\",\"tanggal_panen\":\"2026-02-16\",\"total_berat_kg\":\"1000\",\"total_harga\":\"25000000\",\"mortality_rate_final\":5.56,\"obat_digunakan\":true,\"durasi_aktual_hari\":0,\"durasi_target_hari\":1}', 0, 'VALIDATED', '2026-02-16 10:34:25', '2026-02-16 10:34:25');
+
 -- --------------------------------------------------------
 
 --
@@ -177,6 +274,14 @@ CREATE TABLE `login` (
   `Password` varchar(255) NOT NULL,
   `Role` enum('admin','user') NOT NULL DEFAULT 'user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `login`
+--
+
+INSERT INTO `login` (`UserID`, `KodePeternakan`, `Email`, `Password`, `Role`) VALUES
+(1, 1, 'admin@smartpoultry.id', '$2b$10$y40eOKVnOiM7W/2ySPxF6.8Giet/7ebZd4G35FMNork.kRHboBSmG', 'admin'),
+(2, 2, 'ivandernathanaelk@gmail.com', '$2b$10$gssuM8XKLufEHbvJanMFr.JtwM/8DO6iEHKPJqkkUOo4.Hcp/Ng.C', 'user');
 
 -- --------------------------------------------------------
 
@@ -206,6 +311,13 @@ CREATE TABLE `notapenerimaan` (
   `NamaPenerima` char(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `notapenerimaan`
+--
+
+INSERT INTO `notapenerimaan` (`KodePenerimaan`, `KodeOrder`, `TanggalPenerimaan`, `NamaPenerima`) VALUES
+('NPR-000000001', 'ORD-000000001', '2026-02-16', 'Ivan');
+
 -- --------------------------------------------------------
 
 --
@@ -232,6 +344,13 @@ CREATE TABLE `orders` (
   `StatusOrder` enum('PROSES','SUDAH DITERIMA') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`KodeOrder`, `KodePeternakan`, `KodeSupplier`, `TanggalOrder`, `StatusOrder`) VALUES
+('ORD-000000001', 2, 'SUP-000000001', '2026-02-16', 'SUDAH DITERIMA');
+
 -- --------------------------------------------------------
 
 --
@@ -246,6 +365,13 @@ CREATE TABLE `panen` (
   `TotalHarga` decimal(14,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `panen`
+--
+
+INSERT INTO `panen` (`KodePanen`, `KodeKandang`, `TanggalPanen`, `TotalBerat`, `TotalHarga`) VALUES
+('PAN-000000002', 'KDG-000000001', '2026-02-16', 1000, '25000000.00');
+
 -- --------------------------------------------------------
 
 --
@@ -257,6 +383,13 @@ CREATE TABLE `pemakaianfeed` (
   `KodeKandang` char(13) NOT NULL,
   `TanggalPemakaian` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pemakaianfeed`
+--
+
+INSERT INTO `pemakaianfeed` (`KodePemakaianFeed`, `KodeKandang`, `TanggalPemakaian`) VALUES
+('PFD-000000001', 'KDG-000000001', '2026-02-16');
 
 -- --------------------------------------------------------
 
@@ -271,6 +404,15 @@ CREATE TABLE `pemakaianobat` (
   `TanggalPenggunaan` date NOT NULL,
   `JumlahObat` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pemakaianobat`
+--
+
+INSERT INTO `pemakaianobat` (`KodePemakaianObat`, `KodePerlengkapan`, `KodeKandang`, `TanggalPenggunaan`, `JumlahObat`) VALUES
+('POB-000000001', 'PER-000000002', 'KDG-000000001', '2026-02-16', 2),
+('POB-000000002', 'PER-000000002', 'KDG-000000001', '2026-02-16', 2),
+('POB-000000003', 'PER-000000002', 'KDG-000000001', '2026-02-16', 2);
 
 -- --------------------------------------------------------
 
@@ -301,6 +443,13 @@ CREATE TABLE `pengiriman` (
   `NamaPerusahaanPengiriman` varchar(50) DEFAULT NULL,
   `AlamatTujuan` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pengiriman`
+--
+
+INSERT INTO `pengiriman` (`KodePengiriman`, `KodePanen`, `KodeKandang`, `KodeStaf`, `TanggalPengiriman`, `NamaPerusahaanPengiriman`, `AlamatTujuan`) VALUES
+('PNG-000000002', 'PAN-000000002', 'KDG-000000001', 'STF-000000001', '2026-02-16', 'Japfa', 'Jakarta Barat');
 
 -- --------------------------------------------------------
 
@@ -345,6 +494,14 @@ CREATE TABLE `perlengkapan` (
   `Satuan` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `perlengkapan`
+--
+
+INSERT INTO `perlengkapan` (`KodePerlengkapan`, `KodePeternakan`, `NamaPerlengkapan`, `KategoriPerlengkapan`, `Satuan`) VALUES
+('PER-000000001', 2, 'Pakan Starter', 'PAKAN', 'kg'),
+('PER-000000002', 2, 'Obat', 'OBAT', 'Piece');
+
 -- --------------------------------------------------------
 
 --
@@ -356,6 +513,14 @@ CREATE TABLE `peternakan` (
   `NamaPeternakan` varchar(255) NOT NULL,
   `LokasiPeternakan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `peternakan`
+--
+
+INSERT INTO `peternakan` (`KodePeternakan`, `NamaPeternakan`, `LokasiPeternakan`) VALUES
+(1, 'SmartPoultry Admin', 'Bandung'),
+(2, 'Peternakan Ivan', 'Gading Serpong');
 
 -- --------------------------------------------------------
 
@@ -369,6 +534,13 @@ CREATE TABLE `staf` (
   `NamaStaf` varchar(255) DEFAULT NULL,
   `PosisiStaf` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `staf`
+--
+
+INSERT INTO `staf` (`KodeStaf`, `KodeTim`, `NamaStaf`, `PosisiStaf`) VALUES
+('STF-000000001', 'TIM-000000001', 'Ivan', 'Owner');
 
 -- --------------------------------------------------------
 
@@ -384,6 +556,14 @@ CREATE TABLE `statuskandang` (
   `BeratRataRata` float DEFAULT NULL,
   `TanggalPemeriksaan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `statuskandang`
+--
+
+INSERT INTO `statuskandang` (`KodeStatus`, `KodeKandang`, `UmurAyam`, `Populasi`, `BeratRataRata`, `TanggalPemeriksaan`) VALUES
+('STS-000000001', 'KDG-000000001', 0, 80, 40, '2026-02-16'),
+('STS-000000002', 'KDG-000000001', 1, 85, 1000, '2026-02-17');
 
 -- --------------------------------------------------------
 
@@ -401,6 +581,13 @@ CREATE TABLE `statuskematian` (
   `Keterangan` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `statuskematian`
+--
+
+INSERT INTO `statuskematian` (`KodeStatusKematian`, `KodeKandang`, `TanggalKejadian`, `JumlahMati`, `JumlahReject`, `BuktiKematian`, `Keterangan`) VALUES
+('SMT-000000001', 'KDG-000000001', '2026-02-16', 5, 5, NULL, 'Suhu yang tidak sesuai');
+
 -- --------------------------------------------------------
 
 --
@@ -413,6 +600,14 @@ CREATE TABLE `stokwarehouse` (
   `Jumlah` int(11) NOT NULL,
   `TanggalMasukPerlengkapan` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `stokwarehouse`
+--
+
+INSERT INTO `stokwarehouse` (`KodeWarehouse`, `KodePerlengkapan`, `Jumlah`, `TanggalMasukPerlengkapan`) VALUES
+('WRH-000000001', 'PER-000000001', 90, '2026-02-16'),
+('WRH-000000001', 'PER-000000002', 4, '2026-02-16');
 
 -- --------------------------------------------------------
 
@@ -427,6 +622,13 @@ CREATE TABLE `supplier` (
   `KontakSupplier` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `supplier`
+--
+
+INSERT INTO `supplier` (`KodeSupplier`, `KodePeternakan`, `NamaSupplier`, `KontakSupplier`) VALUES
+('SUP-000000001', 2, 'AyamCerdas', '081111111111');
+
 -- --------------------------------------------------------
 
 --
@@ -439,6 +641,13 @@ CREATE TABLE `timkerja` (
   `NamaTim` varchar(255) DEFAULT NULL,
   `JumlahAnggota` int(11) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `timkerja`
+--
+
+INSERT INTO `timkerja` (`KodeTim`, `KodePeternakan`, `NamaTim`, `JumlahAnggota`) VALUES
+('TIM-000000001', 2, 'Tim Kandang A', 1);
 
 -- --------------------------------------------------------
 
@@ -578,6 +787,13 @@ CREATE TABLE `warehouse` (
   `KodePeternakan` int(11) NOT NULL,
   `LokasiWarehouse` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `warehouse`
+--
+
+INSERT INTO `warehouse` (`KodeWarehouse`, `KodePeternakan`, `LokasiWarehouse`) VALUES
+('WRH-000000001', 2, 'Warehouse Utama');
 
 -- --------------------------------------------------------
 
@@ -889,37 +1105,37 @@ ALTER TABLE `warehouse`
 -- AUTO_INCREMENT for table `blockchainidentity`
 --
 ALTER TABLE `blockchainidentity`
-  MODIFY `IdIdentity` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IdIdentity` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `cycle`
 --
 ALTER TABLE `cycle`
-  MODIFY `KodeCycle` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `KodeCycle` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `detailfeed`
 --
 ALTER TABLE `detailfeed`
-  MODIFY `KodeDetailFeed` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `KodeDetailFeed` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `ledger_peternakan`
 --
 ALTER TABLE `ledger_peternakan`
-  MODIFY `IdBlock` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `IdBlock` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `peternakan`
 --
 ALTER TABLE `peternakan`
-  MODIFY `KodePeternakan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `KodePeternakan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `todo`
